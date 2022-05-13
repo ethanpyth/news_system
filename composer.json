@@ -1,0 +1,17 @@
+{
+    "name": "excellence/news_system",
+    "description": "an application for a news system",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Excellence\\NewsSystem\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Excellence KAWEJ",
+            "email": "19ka201@esisalama.org"
+        }
+    ],
+    "require": {}
+}
