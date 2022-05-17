@@ -2,6 +2,9 @@
 
 namespace Library;
 
+use Library\HTTPRequest;
+use Library\HTTPResponse;
+
 abstract class Application
 {
     protected $httpRequest;
@@ -16,7 +19,8 @@ abstract class Application
         $this->name = '';
     }
 
-    public function getController(){
+    public function getController()
+    {
         $router = new \Library\Router;
 
         $xml = new \DOMDocument;
@@ -24,20 +28,26 @@ abstract class Application
 
         $routes = $xml->getElementsByTagName('route');
 
-        foreach ($routes as $route){
+        foreach ($routes as $route)
+        {
             $vars = array();
 
-            if($route->hasAttribute('vars')){
+            if($route->hasAttribute('vars'))
+            {
                 $vars = explode(',', $routes->getAttribute('vars'));
             }
 
             $router->addRoute(new Route($route->getAttribute('url'), $route->getAttribute('module'), $route->getAttribute('action'), $vars));
         }
 
-        try {
+        try
+        {
             $matchedRoute = $router->getRoute($this->httpRequest->requestURI());
-        }catch (\RuntimeException $e){
-            if ($e->getCode() == \Library\Router::NO_ROUTE){
+        }
+        catch (\RuntimeException $e)
+        {
+            if ($e->getCode() == \Library\Router::NO_ROUTE)
+            {
                 $this->httpResponse->redirect404();
             }
         }
@@ -50,15 +60,18 @@ abstract class Application
 
     abstract public function run();
 
-    public function httpRequest(){
+    public function httpRequest(): HTTPRequest
+    {
         return $this->httpRequest;
     }
 
-    public function httpResponse(){
+    public function httpResponse(): HTTPResponse
+    {
         return $this->httResponse;
     }
 
-    public function name(){
+    public function name(): string
+    {
         return $this->name;
     }
 }

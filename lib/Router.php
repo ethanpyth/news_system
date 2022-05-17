@@ -17,7 +17,7 @@ class Router
     public function getRoute($url){
         foreach($this->routes as $route){
             if(($varsValues = $route->match($url)) !== false){
-                if ($route-hasVars()){
+                if ($route->hasVars()){
                     $varsNames = $route->varsNames();
                     $listVars = array();
 

@@ -17,7 +17,8 @@ class Route
         $this->setVarsNames($varsNames);
     }
 
-    public function hasVars(){
+    public function hasVars(): bool
+    {
         return !empty($this->varsNames);
     }
 
@@ -58,7 +59,8 @@ class Route
         return $this->module;
     }
 
-    public function vars(){
+    public function vars(): array
+    {
         return $this->vars;
     }
 
