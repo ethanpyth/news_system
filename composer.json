@@ -4,7 +4,8 @@
     "type": "library",
     "autoload": {
         "psr-4": {
-            "Excellence\\NewsSystem\\": "src/"
+            "Library\\": "Lib/",
+            "Applications\\": "app/"
         }
     },
     "authors": [
@@ -13,5 +14,8 @@
             "email": "19ka201@esisalama.org"
         }
     ],
-    "require": {}
+    "require": {
+        "ext-dom": "*",
+        "ext-pdo": "*"
+    }
 }

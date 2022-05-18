@@ -8,7 +8,7 @@ class Route
     protected $module;
     protected $url;
     protected $varsNames;
-    protected $vars = array();
+    protected array $vars = array();
 
     public function __construct($url, $module, $action, array $varsNames){
         $this->setUrl($url);

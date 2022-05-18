@@ -2,26 +2,29 @@
 
 namespace Library;
 
-use Library\HTTPRequest;
-use Library\HTTPResponse;
+use Lib\HTTPRequest;
+use Lib\HTTPResponse;
 
 abstract class Application
 {
-    protected $httpRequest;
-    protected $httResponse;
-    protected $name;
+    protected \Lib\HTTPRequest $httpRequest;
+    protected \Lib\HTTPResponse $httResponse;
+    protected string $name;
+    protected User $user;
+    protected Config $config;
 
     public function __construct()
     {
         $this->httpRequest = new HTTPRequest($this);
         $this->httResponse = new HTTPResponse($this);
-
+        $this->user = new User($this);
+        $this->config = new Config($this);
         $this->name = '';
     }
 
     public function getController()
     {
-        $router = new \Library\Router;
+        $router = new \Lib\Router;
 
         $xml = new \DOMDocument;
         $xml->load(__DIR__ . '/../app/' . $this->name . '/Config/routes.xml');
@@ -32,9 +35,8 @@ abstract class Application
         {
             $vars = array();
 
-            if($route->hasAttribute('vars'))
-            {
-                $vars = explode(',', $routes->getAttribute('vars'));
+            if($route->hasAttribute('vars')) {
+                $vars = explode(',', $route->getAttribute('vars'));
             }
 
             $router->addRoute(new Route($route->getAttribute('url'), $route->getAttribute('module'), $route->getAttribute('action'), $vars));
@@ -46,8 +48,7 @@ abstract class Application
         }
         catch (\RuntimeException $e)
         {
-            if ($e->getCode() == \Library\Router::NO_ROUTE)
-            {
+            if ($e->getCode() == \Lib\Router::NO_ROUTE) {
                 $this->httpResponse->redirect404();
             }
         }
