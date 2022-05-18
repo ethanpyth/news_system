@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <routes>
-    <route url="/news-(.+)-([0-9]+)\.html" module="News" action="index" vars="slug, id"/>
+    <route url="/news-([0-9]+)\.html" module="News" action="show" vars="slug, id"/>
     <route url="/" action="index" module="News"/>
 </routes>

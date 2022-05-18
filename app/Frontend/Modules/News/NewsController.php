@@ -26,4 +26,15 @@ class NewsController extends \Library\BackController
 
         $this->page->addVar('listeNews', $listeNews);
     }
+
+    public function executeShow(\Library\HTTPRequest $request)
+    {
+        $news = $this->managers->getManagerOf('News')->getUnique($request->getData('id'));
+        if (empty($news)) {
+            $this->app->httpResponse()->redirect404();
+        }
+
+        $this->page->addVar('title', $news->titre());
+        $this->page->addVar('news', $news);
+    }
 }

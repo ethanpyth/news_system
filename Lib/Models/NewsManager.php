@@ -2,7 +2,7 @@
 
 namespace Library\Models;
 
-class NewsManager extends \Library\Manager
+abstract class NewsManager extends \Library\Manager
 {
-
+    abstract public function getList($debut = -1, $limite = -1);
 }
