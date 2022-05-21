@@ -19,3 +19,30 @@ if ($news['dateAjout'] != $news['dateModif']) {
     </p>
     <?php
 }
+?>
+<p>
+    <a href="commenter-<?php echo $news['id']; ?>.html">Ajouter un commentaire</a>
+</p>
+<?php
+if (empty($comments)) {
+    ?>
+<p>Aucun commentaire n'a encore été posté. Soyez le premier à en laisser un!</p>
+    <?php
+}
+foreach ($comments as $comment) {
+    ?>
+    <fieldset>
+        <legend>
+            Posté par <strong>
+                <?php echo htmlspecialchars($comment['auteur']); ?>
+            </strong> le 
+            <?php echo htmlspecialchars($comment['date']->format('d/m/Y à H\hi')); ?>
+        </legend>
+        <p>
+            <?php echo nl2br(htmlspecialchars($comment['contenu'])); ?>
+        </p>
+    </fieldset>
+    <?php
+}
+?>
+<p><a href="commenter-<?php echo $news['id']; ?>.html">Ajouter un commentaire</a></p>

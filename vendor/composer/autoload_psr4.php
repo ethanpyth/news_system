@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Excellence\\NewsSystem\\' => array($baseDir . '/src'),
+    'Library\\' => array($baseDir . '/Lib'),
+    'Applications\\' => array($baseDir . '/app'),
 );
