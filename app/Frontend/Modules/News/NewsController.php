@@ -11,7 +11,7 @@ class NewsController extends \Library\BackController
 
         $this->page->addVar('title', 'Liste des ' . $nombreNews . ' dernières news');
 
-        $manager = $this->managers->getManagerOf('News');
+        $manager = $this->managers->getManagerOf('Connexion');
 
         $listeNews = $manager->getList(0, $nombreNews);
 
@@ -29,7 +29,7 @@ class NewsController extends \Library\BackController
 
     public function executeShow(\Library\HTTPRequest $request)
     {
-        $news = $this->managers->getManagerOf('News')->getUnique($request->getData('id'));
+        $news = $this->managers->getManagerOf('Connexion')->getUnique($request->getData('id'));
         if (empty($news)) {
             $this->app->httpResponse()->redirect404();
         }

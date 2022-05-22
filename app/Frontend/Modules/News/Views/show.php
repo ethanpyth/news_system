@@ -29,6 +29,7 @@ if (empty($comments)) {
 <p>Aucun commentaire n'a encore été posté. Soyez le premier à en laisser un!</p>
     <?php
 }
+
 foreach ($comments as $comment) {
     ?>
     <fieldset>
@@ -45,4 +46,6 @@ foreach ($comments as $comment) {
     <?php
 }
 ?>
-<p><a href="commenter-<?php echo $news['id']; ?>.html">Ajouter un commentaire</a></p>
+<p>
+    <a href="commenter-<?php echo $news['id']; ?>.html">Ajouter un commentaire</a>
+</p>

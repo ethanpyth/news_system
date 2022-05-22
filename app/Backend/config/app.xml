@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<definitions>
+    <define var="login" value="admin"/>
+    <define var="pass" value="mdp"/>
+</definitions>
