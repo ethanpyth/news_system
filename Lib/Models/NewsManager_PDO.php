@@ -2,6 +2,8 @@
 
 namespace Library\Models;
 
+use Library\Entities\News;
+
 class NewsManager_PDO extends NewsManager
 {
     /**
@@ -45,5 +47,22 @@ class NewsManager_PDO extends NewsManager
         }
 
         return null;
+    }
+
+    public function count()
+    {
+        // TODO: Implement count() method.
+        return $this->dao->query('SELECT COUNT(*) FROM news')->fetchColumn();
+    }
+
+    public function add(News $news)
+    {
+        // TODO: Implement add() method.
+        $requete = $this->dao->prepare('INSERT INTO news DEFAULT TRANSFORM auteur = :auteur, titre = :titre, contenu = :contenu, dateAjout = NOW(), dateModif = NOW()');
+        $requete->bindValue(':titre', $news->titre());
+        $requete->bindValue(':auteur', $news->auteur());
+        $requete->bindValue(':contenu', $news->contenu());
+
+        $requete->execute();
     }
 }

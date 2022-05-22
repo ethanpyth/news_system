@@ -2,13 +2,13 @@
 
 namespace Library;
 
-use Lib\HTTPRequest;
-use Lib\HTTPResponse;
+use Library\HTTPRequest;
+use Library\HTTPResponse;
 
 abstract class Application
 {
-    protected \Lib\HTTPRequest $httpRequest;
-    protected \Lib\HTTPResponse $httResponse;
+    protected \Library\HTTPRequest $httpRequest;
+    protected \Library\HTTPResponse $httpResponse;
     protected string $name;
     protected User $user;
     protected Config $config;
@@ -16,7 +16,7 @@ abstract class Application
     public function __construct()
     {
         $this->httpRequest = new HTTPRequest($this);
-        $this->httResponse = new HTTPResponse($this);
+        $this->httpResponse = new HTTPResponse($this);
         $this->user = new User($this);
         $this->config = new Config($this);
         $this->name = '';
@@ -24,7 +24,7 @@ abstract class Application
 
     public function getController()
     {
-        $router = new \Lib\Router;
+        $router = new \Library\Router;
 
         $xml = new \DOMDocument;
         $xml->load(__DIR__ . '/../app/' . $this->name . '/Config/routes.xml');
@@ -48,7 +48,7 @@ abstract class Application
         }
         catch (\RuntimeException $e)
         {
-            if ($e->getCode() == \Lib\Router::NO_ROUTE) {
+            if ($e->getCode() == \Library\Router::NO_ROUTE) {
                 $this->httpResponse->redirect404();
             }
         }
@@ -68,11 +68,15 @@ abstract class Application
 
     public function httpResponse(): HTTPResponse
     {
-        return $this->httResponse;
+        return $this->httpResponse;
     }
 
     public function name(): string
     {
         return $this->name;
+    }
+
+    public function config()
+    {
     }
 }
