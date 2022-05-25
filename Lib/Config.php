@@ -9,7 +9,7 @@ class Config extends ApplicationComponent
     {
         if (!$this->vars) {
             $xml = new \DOMDocument;
-            $xml->load(__DIR__ . '/../Applications/' . $this->app->name() . '/Config/app.xml');
+            $xml->load(__DIR__ . '../App/' . $this->app->name() . '/Config/app.xml');
             $elements = $xml->getElementsByTagName('define');
 
             foreach ($elements as $element)

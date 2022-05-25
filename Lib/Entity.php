@@ -2,8 +2,7 @@
 
 namespace Library;
 
-use JetBrains\PhpStorm\Internal\LanguageLevelTypeAware;
-use JetBrains\PhpStorm\Internal\TentativeType;
+use Exception;
 use ReturnTypeWillChange;
 
 class Entity implements \ArrayAccess
@@ -51,7 +50,7 @@ class Entity implements \ArrayAccess
     /**
      * @inheritDoc
      */
-    public function offsetGet($offset)
+    #[ReturnTypeWillChange] public function offsetGet($offset)
     {
         // TODO: Implement offsetGet() method.
         if (isset($this->$offset) && is_callable(array($this, $offset))) {
@@ -62,7 +61,7 @@ class Entity implements \ArrayAccess
     /**
      * @inheritDoc
      */
-    public function offsetSet($offset, $value)
+    #[ReturnTypeWillChange] public function offsetSet($offset, $value)
     {
         // TODO: Implement offsetSet() method.
 
@@ -75,12 +74,13 @@ class Entity implements \ArrayAccess
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
-    public function offsetUnset($offset)
+    #[ReturnTypeWillChange] public function offsetUnset($offset)
     {
         // TODO: Implement offsetUnset() method.
 
-        throw new \Exception('Impossible de supprimer une quelconque valeur');
+        throw new Exception('Impossible de supprimer une quelconque valeur');
     }
 
     public function hydrate(array $donnees)

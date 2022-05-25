@@ -4,7 +4,9 @@
 <form action="" method="post">
     <p>
         <?php
-        if (isset($erreurs) && in_array(\Library\Entities\News::AUTEUR_INVALIDE, $erreurs)) {
+        if (isset($erreurs) 
+            && in_array(\Library\Entities\News::AUTEUR_INVALIDE, $erreurs)
+        ) {
             echo 'L\'auteur n\'est pas valide.<br>';
         }
         ?>
@@ -16,7 +18,9 @@
         }
         ?>"><br>
         <?php
-        if (isset($erreurs) && (in_array(\Library\Entities\News::TITRE_INVALIDE, $erreurs))) {
+        if (isset($erreurs) 
+            && (in_array(\Library\Entities\News::TITRE_INVALIDE, $erreurs))
+        ) {
             echo 'Le titre est invalide.<br>';
         }
         ?>
@@ -30,7 +34,9 @@
         ">
         <br>
         <?php
-        if (isset($erreurs) && in_array(\Library\Entities\News::CONTENU_INVALIDE, $erreurs)) {
+        if (isset($erreurs) 
+            && in_array(\Library\Entities\News::CONTENU_INVALIDE, $erreurs)
+        ) {
             echo 'Le contenu est invalide.<br>';
         }
         ?>

@@ -4,9 +4,9 @@ namespace Library;
 
 class HTTPRequest extends ApplicationComponent
 {
-    public function cookieData($key): bool
+    public function cookieData($key): ?bool
     {
-        return isset($_COOKIE[$key] ? $_COOKIE[$key] : null);
+        return $_COOKIE[$key] ?? null;
     }
 
     public function cookieExists($key): bool
@@ -14,9 +14,9 @@ class HTTPRequest extends ApplicationComponent
         return isset($_COOKIE[$key]);
     }
 
-    public function getData($key): bool
+    public function getData($key): ?bool
     {
-        return isset($_GET[$key] ? $_GET[$key] : null);
+        return $_GET[$key] ?? null;
     }
 
     public function getExists($key): bool
@@ -39,7 +39,7 @@ class HTTPRequest extends ApplicationComponent
         return isset($_POST[$key]);
     }
 
-    public function requestURI($key)
+    public function requestURI()
     {
         return $_SERVER['REQUEST_URI'];
     }

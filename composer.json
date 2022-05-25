@@ -5,7 +5,7 @@
     "autoload": {
         "psr-4": {
             "Library\\": "Lib/",
-            "Applications\\": "app/"
+            "Applications\\": "App/"
         }
     },
     "authors": [

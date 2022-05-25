@@ -35,7 +35,9 @@ class User extends ApplicationComponent
     public function setAuthenticated($authenticated = true)
     {
         if (!is_bool($authenticated)) {
-            throw new \InvalidArgumentException('La valeur spécifié à la méthode User::setAuthenticated() doit etre un booléen');
+            throw new \InvalidArgumentException(
+                'La valeur spécifié à la méthode User::setAuthenticated() doit etre un booléen'
+            );
         }
 
         $_SESSION['auth'] = $authenticated;

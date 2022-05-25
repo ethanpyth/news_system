@@ -27,7 +27,7 @@ abstract class Application
         $router = new \Library\Router;
 
         $xml = new \DOMDocument;
-        $xml->load(__DIR__ . '/../app/' . $this->name . '/Config/routes.xml');
+        $xml->load(__DIR__ . '/../App/' . $this->name . '/Config/routes.xml');
 
         $routes = $xml->getElementsByTagName('route');
 
@@ -35,7 +35,7 @@ abstract class Application
         {
             $vars = array();
 
-            if($route->hasAttribute('vars')) {
+            if ($route->hasAttribute('vars')) {
                 $vars = explode(',', $route->getAttribute('vars'));
             }
 
@@ -53,8 +53,8 @@ abstract class Application
             }
         }
 
-        $_GET = array($_GET, $matchedRoute->vars());
-        $controllersCLass = 'Applications\\' . $this->name . '\\Modules\\' . $matchedRoute->module() . 'Controller';
+        $_GET = array_merge($_GET, $matchedRoute->vars());
+        $controllersCLass = 'Applications\\' . $this->name . '\\Modules\\' . $matchedRoute->module(). '\\' . $matchedRoute->module() .  'Controller';
 
         return new $controllersCLass($this, $matchedRoute->module(), $matchedRoute->action());
     }
@@ -76,7 +76,13 @@ abstract class Application
         return $this->name;
     }
 
-    public function config()
+    public function config(): Config
     {
+        return $this->config;
+    }
+
+    public function user(): User
+    {
+        return $this->user;
     }
 }

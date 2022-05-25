@@ -10,7 +10,9 @@ class Page extends ApplicationComponent
     public function addVar($var, $value)
     {
         if (!is_string($var) || is_numeric($var) || empty($var)) {
-            throw new \InvalidArgumentException('Le nom de la variable doit etre une chaine de caractère non nulle');
+            throw new \InvalidArgumentException(
+                'Le nom de la variable doit etre une chaine de caractère non nulle'
+            );
         }
         $this->vars[$var] = $value;
     }
@@ -28,7 +30,7 @@ class Page extends ApplicationComponent
         require $this->contentFile;
         $content = ob_get_clean();
         ob_start();
-        require dirname(__FILE__) . '/../app/' . $this->app->name() . '/Templates/layout.php';
+        require __DIR__ . '../App/' . $this->app->name() . '/Templates/layout.php';
         return ob_get_clean();
     }
 

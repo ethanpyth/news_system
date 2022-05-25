@@ -2,6 +2,7 @@
 
 namespace Library;
 
+use \Library\PDOFactory;
 class BackController extends ApplicationComponent
 {
     protected string $action = '';
@@ -14,7 +15,7 @@ class BackController extends ApplicationComponent
     {
         parent::__construct($app);
 
-        $this->managers = new Managers('PDO', (new PDOFactory)->getMysqlConnexion());
+        $this->managers = new Managers('PDO', PDOFactory::getMysqlConnexion());
         $this->page = new Page($app);
         $this->setModule($module);
         $this->setAction($action);
@@ -31,7 +32,7 @@ class BackController extends ApplicationComponent
         $this->$method($this->app->httpRequest());
     }
 
-    public function page()
+    public function page(): ?Page
     {
         return $this->page;
     }
@@ -59,6 +60,6 @@ class BackController extends ApplicationComponent
         }
         $this->view = $view;
 
-        $this->page->setContentFile(__DIR__ . '/../Applications/' . $this->app->name() . '/Modules/' . $this->module . '/Views/' . $this->view . '.php');
+        $this->page->setContentFile(__DIR__ . '../App/' . $this->app->name() . '/Modules/' . $this->module . '/Views/' . $this->view . '.php');
     }
 }

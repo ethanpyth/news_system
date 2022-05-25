@@ -2,6 +2,7 @@
 
 namespace Applications\Backend\modules\News;
 
+use JetBrains\PhpStorm\NoReturn;
 use Library\Entities\News;
 use Library\HTTPRequest;
 
@@ -18,6 +19,32 @@ class NewsController extends \Library\BackController
     }
 
     public function executeInsert(HTTPRequest $request)
+    {
+        if ($request->postExists('auteur')) {
+            $this->processForm($request);
+        }
+
+        $this->page->addVar('title', 'Ajout d\'une news');
+    }
+
+    public function executeUpdate(HTTPRequest $request)
+    {
+        if ($request-postExists('auteur')) {
+            $this->processForm($request);
+        } else {
+            $this->page->addVar('news', $this->managers->getManagerOf('News')->getUnique($request->getData('id')));
+        }
+        $this->page->addVar('title', 'Modification d\une news');
+    }
+
+    #[NoReturn] public function executeDelete(HTTPRequest $request)
+    {
+        $this->managers->getManagerOf('News')->delete($request->getData('id'));
+        $this->app->user()->setFlash('La news a bien été supprimé!');
+        $this->app->httpResponse()->redirect('.');
+    }
+
+    public function processForm(HTTPRequest $request)
     {
         $news = new News(array(
             'auteur' => $request->postData('auteur'),

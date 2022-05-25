@@ -10,12 +10,13 @@ abstract class NewsManager extends \Library\Manager
     abstract public function getUnique($id);
     abstract public function count();
     abstract public function add(News $news);
+    abstract public function modify(News $news);
+    abstract public function delete($id);
     public function save(News $news)
     {
         if ($news->isValid()) {
             $news->isNew() ? $this->add($news) : $this->modify($news);
-        }
-        else {
+        } else {
             throw new \RuntimeException('La news doit etre validée pour etre enregistrée');
         }
     }

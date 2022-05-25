@@ -10,7 +10,8 @@ class Route
     protected $varsNames;
     protected array $vars = array();
 
-    public function __construct($url, $module, $action, array $varsNames){
+    public function __construct($url, $module, $action, array $varsNames)
+    {
         $this->setUrl($url);
         $this->setModule($module);
         $this->setAction($action);
@@ -22,8 +23,9 @@ class Route
         return !empty($this->varsNames);
     }
 
-    public function match($url){
-        if(preg_match('^'. $this->url . '$', $url, $matches)){
+    public function match($url)
+    {
+        if (preg_match('^'. $this->url . '$', $url, $matches)) {
             return $matches;
         }
         else{
@@ -31,31 +33,37 @@ class Route
         }
     }
 
-    public function setAction($action){
-        if(is_string($action)){
+    public function setAction($action): void
+    {
+        if (is_string($action)) {
             $this->action = $action;
         }
     }
 
-    public function setModule($module){
-        if(is_string($module)){
+    public function setModule($module): void
+    {
+        if (is_string($module)) {
             $this->module = $module;
         }
     }
 
-    public function setVarsNames(array $varsNames){
+    public function setVarsNames(array $varsNames): void
+    {
         $this->varsNames = $varsNames;
     }
 
-    public function setVars(array $vars){
+    public function setVars(array $vars): void
+    {
         $this->vars = $vars;
     }
 
-    public function action(){
+    public function action()
+    {
         return $this->action;
     }
 
-    public function module(){
+    public function module()
+    {
         return $this->module;
     }
 
@@ -64,7 +72,13 @@ class Route
         return $this->vars;
     }
 
-    public function varsNames(){
+    public function varsNames()
+    {
         return $this->varsNames;
+    }
+
+    public function setUrl($url): void
+    {
+        $this->url = $url;
     }
 }
