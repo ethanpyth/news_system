@@ -2,7 +2,9 @@
 
 namespace Library\Models;
 
-class CommentManager_PDO
+use Library\Entities\Comment;
+
+class CommentManager_PDO extends CommentManager
 {
     protected function add(Comment $comment): void
     {
@@ -36,5 +38,33 @@ class CommentManager_PDO
         }
 
         return $comments;
+    }
+
+    public function modify(Comment $comment): void
+    {
+        $q = $this->dao->prepare('UPDATE comments SET auteur = : auteur, contenu = :contenu WHERE id = :id');
+        $q->bindValue(':auteur', $comment->auteur());
+        $q->bindValue(':contenu', $comment->contenu());
+        $q->bindValue(':id', $comment->id());
+
+        $q->execute();
+    }
+
+    public function get($id)
+    {
+        $q = $this->dao->prepare('SELECT id, news, auteur, contenu FROM comme WHERE id = :id');
+
+        $q->bindValue(':id', (int) $id, \PDO::PARAM_INT);
+        $q->execute();
+
+        $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Library\Entities\Comment');
+
+        return $q->fetch();
+    }
+
+    public function delete($id)
+    {
+        // TODO: Implement delete() method.
+        $this->dao->exec('DELETE FROM comments WHERE id = ' . (int) $id);
     }
 }

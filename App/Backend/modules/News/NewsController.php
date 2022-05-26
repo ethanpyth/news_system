@@ -3,6 +3,7 @@
 namespace Applications\Backend\modules\News;
 
 use JetBrains\PhpStorm\NoReturn;
+use Library\Entities\Comment;
 use Library\Entities\News;
 use Library\HTTPRequest;
 
@@ -41,6 +42,37 @@ class NewsController extends \Library\BackController
     {
         $this->managers->getManagerOf('News')->delete($request->getData('id'));
         $this->app->user()->setFlash('La news a bien été supprimé!');
+        $this->app->httpResponse()->redirect('.');
+    }
+
+    public function executeUpdateComment(HTTPRequest $request)
+    {
+        $this->page->addVar('title', 'Modification d\'un commentaire');
+
+        if ($request->postExists('pseudo')) {
+            $comment = new Comment(array(
+                'id' =>$request->getData('id'),
+                'auteur' => $request->postData('pseudo'),
+                'contenu' => $request->postData( 'contenu'),
+            ));
+            if ($comment->isValid()) {
+                $this->managers->getManagerOf('Comment')->save($comment);
+
+                $this->app->user()->setFlash('Le commentaire a bien été modifié');
+                $this->app->httpResponse()->redirect('/news-' . $request->postData('news') . '.html');
+            } else {
+                $this->page->addVar('erreurs', $comment->erreurs());
+            }
+            $this->page->addVar('comment', $comment);
+        } else {
+            $this->page->addVar('comment', $this->managers->getManagerOf('Comments')->get($request->getData('id')));
+        }
+    }
+
+    public function executeDeleteComment(HTTPRequest $request)
+    {
+        $this->managers->getManagerOf('Comments')->delete($request->getData('id'));
+        $this->app->user()->setFlash('Le commentaire a bien été supprimé!');
         $this->app->httpResponse()->redirect('.');
     }
 
