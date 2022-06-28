@@ -2,13 +2,13 @@
 
 namespace Library;
 
-use Library\HTTPRequest;
-use Library\HTTPResponse;
+use DOMDocument;
+use http\Exception\RuntimeException;
 
 abstract class Application
 {
-    protected \Library\HTTPRequest $httpRequest;
-    protected \Library\HTTPResponse $httpResponse;
+    protected HTTPRequest $httpRequest;
+    protected HTTPResponse $httpResponse;
     protected string $name;
     protected User $user;
     protected Config $config;
@@ -24,9 +24,9 @@ abstract class Application
 
     public function getController()
     {
-        $router = new \Library\Router;
+        $router = new Router;
 
-        $xml = new \DOMDocument;
+        $xml = new DOMDocument;
         $xml->load(__DIR__ . '/../App/' . $this->name . '/Config/routes.xml');
 
         $routes = $xml->getElementsByTagName('route');
@@ -46,9 +46,9 @@ abstract class Application
         {
             $matchedRoute = $router->getRoute($this->httpRequest->requestURI());
         }
-        catch (\RuntimeException $e)
+        catch (RuntimeException $e)
         {
-            if ($e->getCode() == \Library\Router::NO_ROUTE) {
+            if ($e->getCode() == Router::NO_ROUTE) {
                 $this->httpResponse->redirect404();
             }
         }

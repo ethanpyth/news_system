@@ -6,7 +6,7 @@ use JetBrains\PhpStorm\NoReturn;
 
 class HTTPResponse extends ApplicationComponent
 {
-    protected $page;
+    protected Page $page;
 
     public function addHeader($header)
     {

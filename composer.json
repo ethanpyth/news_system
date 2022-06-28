@@ -17,6 +17,7 @@
     "require": {
         "ext-dom": "*",
         "ext-pdo": "*",
-        "ext-ctype": "*"
+        "ext-ctype": "*",
+        "ext-http": "*"
     }
 }
